@@ -32,10 +32,10 @@ python -m phishdet.cli predict-file --input test_urls.csv --output results.csv
 📊 Demo Output
 text
 URL: http://paypal.com.fake-login.ru
-Prediction: 🟥 PHISHING
+Prediction: 🟥 PHISHING  
 Probability: 0.8923
 
-URL: https://www.google.com  
+URL: https://www.google.com
 Prediction: ✅ BENIGN
 Probability: 0.1234
 📈 Performance
@@ -57,8 +57,7 @@ text
 │       ├── data.py         # Dataset loader
 │       └── models/         # Trained models (.joblib)
 └── test_urls_sample.csv    # Sample test file
-
-CLI Commands
+📝 CLI Commands
 bash
 python -m phishdet.cli --help
 
@@ -66,7 +65,6 @@ Commands:
   train                    Train phishing model
   predict --url <URL>      Single URL prediction
   predict-file --input <FILE> --output <FILE>    Batch predictions
-
 🔧 Batch Processing
 Input (test_urls.csv):
 
@@ -80,12 +78,3 @@ text
 url,prediction,phishing_probability,status
 https://www.google.com,0,0.12,✅ BENIGN
 http://paypal.com.fake-login.ru,1,0.92,🟥 PHISHING
-
-
- Requirements
-text
-pandas>=2.0
-scikit-learn>=1.3
-click>=8.0
-joblib>=1.3
-numpy>=1.24
