@@ -1,80 +1,145 @@
-# 🛡️ AI-Powered Phishing URL Detection System
+.
 
-**98% accurate ML model** that detects phishing URLs using Logistic Regression + TF-IDF. Trained on **PhiUSIIL Phishing Dataset**.
+ AI-Powered Phishing URL Detection System
 
-## ✨ **Features**
+A Machine Learning based phishing URL detection system that identifies malicious URLs using Logistic Regression + TF-IDF vectorization.
 
-- Single URL prediction
-- Batch processing (CSV → CSV) 
-- 98% test accuracy
-- CLI-first interface
-- Production-ready model
+The model is trained on the PhiUSIIL Phishing URL Dataset and achieves ~98% accuracy on the test set.
 
-## 🚀 **Quick Start**
+This project provides a CLI-based interface for predicting phishing URLs individually or in batches.
 
-### 1. **Install**
-```bash
-pip install pandas scikit-learn click joblib numpy
-2. Download Dataset
-Download PhiUSIIL Phishing Dataset to data/PhiUSIIL_Phishing_URL_Dataset.csv
+✨ Features
 
-3. Train
-bash
-cd src
-python -m phishdet.cli train --data ../data/PhiUSIIL_Phishing_URL_Dataset.csv
-4. Predict
-bash
-# Single URL
-python -m phishdet.cli predict --url "http://paypal.com.fake-login.ru"
+✅ Detect phishing URLs with 98% accuracy
+✅ Single URL prediction from command line
+✅ Batch prediction using CSV files
+✅ Fast TF-IDF feature extraction
+✅ Production-ready model saved with Joblib
+✅ Simple CLI interface using Click
 
-# Batch processing
-python -m phishdet.cli predict-file --input test_urls.csv --output results.csv
-📊 Demo Output
-text
-URL: http://paypal.com.fake-login.ru
-Prediction: 🟥 PHISHING  
-Probability: 0.8923
-
-URL: https://www.google.com
-Prediction: ✅ BENIGN
-Probability: 0.1234
-📈 Performance
-Split	Accuracy
+📊 Model Performance
+Dataset	Accuracy
 Train	99.6%
-Val	98.0%
+Validation	98.0%
 Test	98.0%
-Labels: 0=Benign, 1=Phishing
 
-🗂️ Structure
-text
+Label Encoding
+
+0 = Benign URL
+1 = Phishing URL
+📦 Project Structure
+phishing-url-detector/
+│
 ├── README.md
 ├── requirements.txt
-├── data/                    # Download dataset here
+│
+├── data/
+│   └── PhiUSIIL_Phishing_URL_Dataset.csv
+│
 ├── src/
 │   └── phishdet/
-│       ├── cli.py          # CLI commands
-│       ├── model.py        # ML model (98% accurate)
-│       ├── data.py         # Dataset loader
-│       └── models/         # Trained models (.joblib)
-└── test_urls_sample.csv    # Sample test file
-📝 CLI Commands
-bash
-python -m phishdet.cli --help
+│       ├── cli.py
+│       ├── model.py
+│       ├── data.py
+│       └── models/
+│           └── phishing_model.joblib
+│
+└── test_urls_sample.csv
+⚙️ Installation
 
-Commands:
-  train                    Train phishing model
-  predict --url <URL>      Single URL prediction
-  predict-file --input <FILE> --output <FILE>    Batch predictions
-🔧 Batch Processing
-Input (test_urls.csv):
+Clone the repository
 
-text
+git clone https://github.com/yourusername/phishing-url-detector.git
+cd phishing-url-detector
+
+Install dependencies
+
+pip install pandas scikit-learn click joblib numpy
+
+Or using requirements file
+
+pip install -r requirements.txt
+📥 Dataset
+
+Download the PhiUSIIL Phishing URL Dataset and place it in:
+
+data/PhiUSIIL_Phishing_URL_Dataset.csv
+
+Dataset Source:
+
+https://archive.ics.uci.edu/ml/index.php
+
+🚀 Training the Model
+
+Navigate to the src directory and run:
+
+cd src
+python -m phishdet.cli train --data ../data/PhiUSIIL_Phishing_URL_Dataset.csv
+
+This will:
+
+Load the dataset
+
+Train the TF-IDF + Logistic Regression model
+
+Save the trained model in:
+
+src/phishdet/models/
+🔍 Predicting URLs
+Single URL Prediction
+python -m phishdet.cli predict --url "http://paypal.com.fake-login.ru"
+
+Example Output
+
+URL: http://paypal.com.fake-login.ru
+Prediction: 🟥 PHISHING
+Probability: 0.8923
+Batch URL Prediction
+
+You can analyze multiple URLs using a CSV file.
+
+Input File (test_urls.csv)
 url
 https://www.google.com
 http://paypal.com.fake-login.ru
-Output (results.csv):
 
-text
+Run prediction:
+
+python -m phishdet.cli predict-file --input test_urls.csv --output results.csv
+Output File (results.csv)
 url,prediction,phishing_probability,status
 https://www.google.com,0,0.12,✅ BENIGN
 http://paypal.com.fake-login.ru,1,0.92,🟥 PHISHING
+🖥 CLI Commands
+
+Show help menu
+
+python -m phishdet.cli --help
+
+Available commands:
+
+train                     Train phishing detection model
+predict --url <URL>       Predict a single URL
+predict-file              Batch prediction using CSV
+🧠 Model Architecture
+
+The detection pipeline uses:
+
+1️⃣ TF-IDF Vectorization
+
+Converts URLs into numerical features based on character patterns.
+
+2️⃣ Logistic Regression
+
+A fast and interpretable classifier that performs well on text-based data.
+
+Pipeline:
+
+URL → TF-IDF Vectorizer → Logistic Regression → Prediction
+🧪 Sample Test File
+
+Example file included:
+
+test_urls_sample.csv
+
+You can modify it to test your own URLs.
